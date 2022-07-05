@@ -2,19 +2,18 @@ import axios from "axios"
 import {useEffect, useState} from "react"
 
 const useAxios = () => {
-    const [personagens,setPersonagens] = useState()
-
-    const fetchApi = async ()=>{
-        const response = await axios.get("https://naruto-api.herokuapp.com/")
-
-        setPersonagens(response.data)
+    const [products,setProducts] = useState()
+    async function requestApi() {
+      const response = await axios.get("http://dummyjson.com/products")
+      setProducts(response.data)
     }
+
     useEffect(()=>{
-        fetchApi()
-    })
-  return (
-    {personagens}
-  )
+
+      requestApi()
+      },[])
+   
+  return {products}
 }
 
 export default useAxios
