@@ -1,20 +1,16 @@
-import { Box, Center, HStack, Flex, Image } from '@chakra-ui/react'
-import useAxios from './Hooks/useAxios';
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import "./App.css";
+import Home from "./Pages/Home";
+//usar grid
 function App() {
-  const {products}= useAxios()
-
   return (
     <div className="App">
-      <Box>Hello World</Box>
-   {products ? 
-    products.products.map((item)=>{
-      console.log(item)
-    })
-     :null
-   }   
-   
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
