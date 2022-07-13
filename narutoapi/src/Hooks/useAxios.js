@@ -1,35 +1,31 @@
 import axios from "axios"
-import {useEffect, useState, useContext} from "react"
-import { ContextInput } from "../Context/ContextInput"
+import {useEffect, useState} from "react"
+
+
 export const useAxios = () => {
     const [products,setProducts] = useState()
-    async function requestApi() {
-      const response = await axios.get("http://dummyjson.com/products")
-      setProducts(response.data)
-    }
-
     useEffect(()=>{
-
-      requestApi()
+      async function fetchProducts(){
+        const res = await axios.get("http://dummyjson.com/products")
+        const data = await res.data
+        setProducts(data)
+      }
+      fetchProducts()
       },[])
-   
   return {products}
 }
 
-export const useAxiosCEP = ()=>{
-  const [cep,setCEP] = useState()
-  const {input} = useContext(ContextInput)
-  if(!input){
-    console.log('Está vazio')
-  }
-  async function requestCEP(){
-    const response = await axios.get(`https://viacep.com.br/ws/${input}/json`)  
-    setCEP(response.data)
-  }
-  useEffect(()=>{
-    requestCEP()
-    })
+export const useAxiosCategories = ()=>{
+  const [categories,setCategories] = useState()
+  useEffect( ()=>{
+    async function fetchCategories(){
 
-    return {cep}
-}
+      const res = await axios.get('http://dummyjson.com/products/categories')
+      const data = await res.data
+      setCategories(data)
+    } 
+    fetchCategories()
+  },[])
+return{categories}
+}   
 
